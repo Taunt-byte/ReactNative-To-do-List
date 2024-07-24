@@ -1,38 +1,66 @@
-import React, { useState } from "react";
-
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
-import { ThemedView } from "@/components/ThemedView";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity, Platform } from 'react-native';
+import { HelloWave } from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
 
   const addTask = () => {
     if (task.length > 0) {
       setTasks([...tasks, { key: Math.random().toString(), value: task }]);
-      setTask("");
+      setTask('');
     }
   };
 
   const removeTask = (taskKey) => {
-    setTasks(tasks.filter((task) => task.key !== taskKey));
+    setTasks(tasks.filter(task => task.key !== taskKey));
   };
 
   return (
-    <ParallaxScrollView>
-      <ThemedView style={styles.container}>
-        <Text style={styles.title}>To-Do List</Text>
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerImage={
+        <Image
+          source={require('@/assets/images/partial-react-logo.png')}
+          style={styles.reactLogo}
+        />
+      }>
+      <ThemedView style={styles.titleContainer}>
+        <Text style={styles.title}>Lista de Tarefas</Text>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText>
+          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+          Press{' '}
+          <ThemedText type="defaultSemiBold">
+            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
+          </ThemedText>{' '}
+          to open developer tools.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+        <ThemedText>
+          Tap the Explore tab to learn more about what's included in this starter app.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+        <ThemedText>
+          When you're ready, run{' '}
+          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
+          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+
         <View style={styles.inputContainer}>
           <TextInput
             placeholder="Enter task"
@@ -40,23 +68,16 @@ export default function HomeScreen() {
             value={task}
             onChangeText={setTask}
           />
-          <TouchableOpacity onPress={addTask} style={styles.addButton}>
-            <Ionicons name="add-circle-outline" size={24} color="#4CAF50" />
-          </TouchableOpacity>
+          <Button title="ADD" onPress={addTask} />
         </View>
         <FlatList
           data={tasks}
-          renderItem={(itemData) => (
-            <View style={styles.listItem}>
-              <Text style={styles.listItemText}>{itemData.item.value}</Text>
-              <TouchableOpacity onPress={() => removeTask(itemData.item.key)}>
-                <Ionicons
-                  name="remove-circle-outline"
-                  size={20}
-                  color="#FF6347"
-                />
-              </TouchableOpacity>
-            </View>
+          renderItem={itemData => (
+            <TouchableOpacity onPress={() => removeTask(itemData.item.key)}>
+              <View style={styles.listItem}>
+                <Text>{itemData.item.value}</Text>
+              </View>
+            </TouchableOpacity>
           )}
         />
       </ThemedView>
@@ -84,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
     textAlign: "center",
-    color: "#333",
+    color: "white",
   },
   inputContainer: {
     flexDirection: "row",

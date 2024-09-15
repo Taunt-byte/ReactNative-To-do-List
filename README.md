@@ -1,14 +1,16 @@
 # ReactNative-To-do-List
 
+Status: Em desenvolvimento
+
 Uma aplicação de lista de tarefas desenvolvida com React Native. Este projeto permite aos usuários adicionar, editar e remover tarefas, ajudando a manter sua vida organizada de maneira simples e eficiente.
 
 ## Funcionalidades
 
-- Adicionar novas tarefas
-- Marcar tarefas como concluídas
-- Editar tarefas existentes
-- Remover tarefas
-- Interface amigável e responsiva
+- [ ] Adicionar novas tarefas 
+- [ ] Marcar tarefas como concluídas 
+- [ ] Editar tarefas existentes
+- [ ] Remover tarefas
+- [ ] Interface amigável e responsiva
 
 ## Tecnologias
 
